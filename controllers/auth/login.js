@@ -7,6 +7,7 @@ function requestAuth(req, res) {
         response_type: 'id_token',
         state: state,
         redirect_uri: process.env.REDIRECT_URI,
+        client_id: process.env.GSA_CLIENT_ID,
         prompt: 'none',
     }
 

@@ -11,7 +11,7 @@ function requestAuth(req, res) {
     }
 
     // 세션으로 state 관리
-    req.sessions.state = state
+    req.session.state = state
 
     const auth_url = process.env.GSA_URL_AUTH + '?' + object2encodedQuery(authParam)
     res.redirect(auth_url)

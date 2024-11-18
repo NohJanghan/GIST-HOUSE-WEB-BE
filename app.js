@@ -12,10 +12,11 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json())
 app.use(session({
     secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
     resave: false,
-    maxAge: 24 * 60 * 60 * 1000,
     cookie: {
-        secure: true,
+        maxAge: 24 * 60 * 60 * 1000,
+        secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
     }
 }))

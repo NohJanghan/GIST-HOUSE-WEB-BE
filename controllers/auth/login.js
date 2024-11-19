@@ -3,8 +3,8 @@
 function requestAuth(req, res) {
     const state = generateRandomString()
     const authParam = {
-        scope: 'openid offline_access profile email phone student_id',
-        response_type: 'id_token',
+        scope: 'openid profile email phone student_id',
+        response_type: 'code',
         state: state,
         redirect_uri: process.env.REDIRECT_URI,
         client_id: process.env.GSA_CLIENT_ID,

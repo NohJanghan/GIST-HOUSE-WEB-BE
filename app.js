@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 // 미들웨어 설정
 app.use(express.json())
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: generateRandomString(),
     saveUninitialized: false,
     resave: false,
     cookie: {
@@ -28,3 +28,13 @@ app.use(URL_PREFIX + '/auth', authRouter)
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 })
+
+function generateRandomString(length = 32) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let res = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        res += characters[randomIndex];
+    }
+    return res;
+}

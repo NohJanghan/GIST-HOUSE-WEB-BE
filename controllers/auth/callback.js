@@ -48,7 +48,7 @@ async function callback(req, res) {
     // 저장된 DB 정보를 가져오기
     // 사용자를 프론트엔드로 리다이렉트
     // 아래는 임시로 된 것
-    res.session.userInfo = userInfo
+    req.session.userInfo = userInfo
     res.redirect(process.env.BASE_URL)
 }
 

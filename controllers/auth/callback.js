@@ -48,6 +48,8 @@ async function callback(req, res) {
     // 학번을 담고있는 Bearer + JWT 토큰을 발행
     // 발행한 인증 토큰을 res에 저장
     // 사용자를 프론트엔드로 리다이렉트
+    // 아래는 임시로 된 것
+    res.redirect(process.env.BASE_URL + '#' + qs.stringify(userInfo))
 }
 
 async function getTokens(authCode) {

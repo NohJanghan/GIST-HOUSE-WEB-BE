@@ -45,11 +45,13 @@ async function callback(req, res) {
 
     // TODO...
     // 유저 정보를 DB에 저장
-    // 학번을 담고있는 Bearer + JWT 토큰을 발행
-    // 발행한 인증 토큰을 res에 저장
+    // 저장된 DB 정보를 가져오기
     // 사용자를 프론트엔드로 리다이렉트
     // 아래는 임시로 된 것
-    res.redirect(process.env.BASE_URL + '#' + qs.stringify(userInfo))
+    req.session.userInfo = userInfo
+    // 정보는 이미 가져 왔으므로 토큰 무효화
+    revokeToken(token.access_token)
+    res.redirect(process.env.BASE_URL)
 }
 
 async function getTokens(authCode) {
@@ -63,7 +65,7 @@ async function getTokens(authCode) {
         password: process.env.GSA_CLIENT_SECRET,
     }
 
-    return axios.post(process.env.GSA_URL_TOKEN, data, {
+    return axios.post(process.env.GSA_URL_API + '/oauth/token', data, {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -78,7 +80,24 @@ async function getUserInfo(accessToken) {
         }
     }
 
-    return axios.get(process.env.GSA_URL_USERINFO, config)
+    return axios.get(process.env.GSA_URL_API + '/oauth/userinfo', config)
+}
+
+async function revokeToken(token, token_type = 'access_token') {
+    const data = qs.stringify({
+        token: token,
+        token_type_hint: token_type,
+    })
+    const auth = {
+        username: process.env.GSA_CLIENT_ID,
+        password: process.env.GSA_CLIENT_SECRET,
+    }
+    return axios.post(process.env.GSA_URL_API + '/oauth/revoke', data, {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        auth: auth,
+    })
 }
 
 module.exports = callback

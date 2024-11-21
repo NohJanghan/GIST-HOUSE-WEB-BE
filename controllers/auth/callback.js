@@ -81,4 +81,21 @@ async function getUserInfo(accessToken) {
     return axios.get(process.env.GSA_URL_USERINFO, config)
 }
 
+async function revokeToken(token, token_type = 'access_token') {
+    const data = qs.stringify({
+        token: token,
+        token_type_hint: token_type,
+    })
+    const auth = {
+        username: process.env.GSA_CLIENT_ID,
+        password: process.env.GSA_CLIENT_SECRET,
+    }
+    return axios.post(process.env.GSA_URL_REVOKE, data, {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        auth: auth,
+    })
+}
+
 module.exports = callback

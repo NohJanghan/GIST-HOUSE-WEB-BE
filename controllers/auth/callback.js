@@ -65,7 +65,7 @@ async function getTokens(authCode) {
         password: process.env.GSA_CLIENT_SECRET,
     }
 
-    return axios.post(process.env.GSA_URL_TOKEN, data, {
+    return axios.post(process.env.GSA_URL_API + '/oauth/token', data, {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -80,7 +80,7 @@ async function getUserInfo(accessToken) {
         }
     }
 
-    return axios.get(process.env.GSA_URL_USERINFO, config)
+    return axios.get(process.env.GSA_URL_API + '/oauth/userinfo', config)
 }
 
 async function revokeToken(token, token_type = 'access_token') {
@@ -92,7 +92,7 @@ async function revokeToken(token, token_type = 'access_token') {
         username: process.env.GSA_CLIENT_ID,
         password: process.env.GSA_CLIENT_SECRET,
     }
-    return axios.post(process.env.GSA_URL_REVOKE, data, {
+    return axios.post(process.env.GSA_URL_API + '/oauth/revoke', data, {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },

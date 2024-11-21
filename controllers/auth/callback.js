@@ -49,6 +49,8 @@ async function callback(req, res) {
     // 사용자를 프론트엔드로 리다이렉트
     // 아래는 임시로 된 것
     req.session.userInfo = userInfo
+    // 정보는 이미 가져 왔으므로 토큰 무효화
+    revokeToken(token.access_token)
     res.redirect(process.env.BASE_URL)
 }
 

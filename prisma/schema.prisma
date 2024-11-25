@@ -20,7 +20,7 @@ enum Role {
 }
 
 model student {
-  id Int @id
+  id Int @id @unique
   email String
   name String
   phone String

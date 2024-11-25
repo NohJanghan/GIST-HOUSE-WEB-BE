@@ -1,4 +1,5 @@
-const express = require("express");
+const express = require('express');
+const prisma = require('../prismaClient');
 const router = express.Router();
 const Reservation = require("../controllers/reservation/placereservation");
 

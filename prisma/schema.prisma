@@ -20,7 +20,7 @@ enum Role {
 }
 
 model student {
-  id Int @id @unique
+  id Int @id
   email String
   name String
   phone String
@@ -36,7 +36,7 @@ model facility {
 
 model place_reservation {
   reservation_id Int @id @default(autoincrement())
-  date DateTime
+  date DateTime @db.Date
   hour Int
   facilityId Int
   facility facility @relation(fields: [facilityId], references: [id])

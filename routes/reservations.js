@@ -1,8 +1,8 @@
 const express = require('express');
-const prisma = require('../prismaClient');
-const router = express.Router();
-const Reservation = require("../controllers/reservation/placereservation");
+const getPlacereservation = require("../controllers/reservation/placereservation");
 
-router.get('/placereservation', Reservation)
+const router = express.Router();
+
+router.get('/', getPlacereservation)
 
 module.exports = router;

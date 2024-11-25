@@ -1,6 +1,5 @@
 // 예약 생성
 async function postPlacereservation(req, res) {
-    console.log("Check")
     const { date, hour, facilityId, studentId } = req.body;
     try {
         const newReservation = await prisma.place_reservation.create({

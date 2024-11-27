@@ -2,6 +2,7 @@ const express = require('express')
 const session = require('express-session')
 const authRouter = require('./routes/auth')
 const dotenv = require('dotenv')
+const cors = require('cors')
 
 dotenv.config()
 const app = express()
@@ -24,6 +25,10 @@ app.use(session({
 // 라우트
 const URL_PREFIX = '/api'
 app.use(URL_PREFIX + '/auth', authRouter)
+app.use(cors({
+    origin: process.env.BASE_URL,
+    credentials: true,
+}))
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);

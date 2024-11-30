@@ -25,12 +25,14 @@ async function postPlacereservation(req, res) {
     const roomId = Number(req.query.roomId)
 
     // 요청 값 검증
-    if(isNaN(hour) || isNaN(roomId)) {
+    if(isNaN(roomId)) {
         return res.status(400).send('Bad request')
     }
-    else if(hour < 0 || hour > 23) {
-        return res.status(400).send('Bad request')
-    }
+    hour.forEach((h) => {
+        if(isNaN(h) || h < 0 || h > 23) {
+            return res.status(400).send('Bad request')
+        }
+    })
 
     // 세션에서 student_id 형식을 숫자로 변경
     const student_id = Number(req.session.userInfo.student_id)

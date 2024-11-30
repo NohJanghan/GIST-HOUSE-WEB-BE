@@ -42,4 +42,6 @@ model place_reservation {
   facility       facility @relation(fields: [facilityId], references: [id])
   studentId      Int
   student        student  @relation(fields: [studentId], references: [id])
+
+  @@unique([date, hour, facilityId])
 }

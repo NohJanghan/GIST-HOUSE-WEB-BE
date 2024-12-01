@@ -18,7 +18,10 @@ async function getPlacereservation(req, res) {
     );
     
     const result = await prisma.place_reservation.findMany({
-      where: { date: date, facilityId: roomId },
+      where: {
+        date: date,
+        facilityId: roomId
+      },
       select: {
         reservation_id: true,
         hour: true,
@@ -29,6 +32,24 @@ async function getPlacereservation(req, res) {
         },
       },
     });
+
+    let myReservation = null;
+    if (req.session.userInfo) {
+      const userId = req.session.userInfo.id;
+      myReservation = await prisma.place_reservation.findMany({
+        where: {
+          date: date,
+          facilityId: roomId,
+          student: {
+            id: userId
+          },
+        },
+        select: {
+          reservation_id: true,
+          hour: true,
+        },
+      });
+    }
 
     // 로그인 여부 확인 및 응답 반환
     if (!req.session.userInfo) {

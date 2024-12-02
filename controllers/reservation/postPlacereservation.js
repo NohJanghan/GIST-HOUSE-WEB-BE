@@ -12,7 +12,6 @@ async function postPlacereservation(req, res) {
     }
 
     // TODO: 잔여 시간을 확인하여 예약할 수 있는지 확인 필요
-    // TODO: 예약하기 전에 이미 그 시간에 예약한 사람이 있는지 확인 필요
 
     // 쿼리로 받아온 값의 형식 변경
     const date = new Date(

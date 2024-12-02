@@ -21,14 +21,14 @@ app.use(session({
         httpOnly: true,
     }
 }))
-
-// 라우트
-const URL_PREFIX = '/api'
-app.use(URL_PREFIX + '/auth', authRouter)
 app.use(cors({
     origin: process.env.BASE_URL,
     credentials: true,
 }))
+
+// 라우트
+const URL_PREFIX = '/api'
+app.use(URL_PREFIX + '/auth', authRouter)
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);

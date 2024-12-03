@@ -48,7 +48,14 @@ async function callback(req, res) {
     // 저장된 DB 정보를 가져오기
     // 사용자를 프론트엔드로 리다이렉트
     // 아래는 임시로 된 것
-    req.session.userInfo = userInfo
+    req.session.userInfo = {
+        student_id: userInfo.student_id,
+        phone: userInfo.phone_number,
+        name: userInfo.user_name,
+        email: userInfo.user_email_id,
+        grant: null // TODO: 데이터베이스 이후에 수정해야함
+    }
+
     // 정보는 이미 가져 왔으므로 토큰 무효화
     revokeToken(token.access_token)
     res.redirect(process.env.BASE_URL)

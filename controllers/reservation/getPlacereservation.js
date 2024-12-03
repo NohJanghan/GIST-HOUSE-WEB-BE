@@ -1,4 +1,5 @@
 const prisma = require('../../prismaClient')
+const parseDate = require('../../utils/parseDate')
 
 // 예약 조회
 async function getPlacereservation(req, res) {
@@ -11,11 +12,7 @@ async function getPlacereservation(req, res) {
     roomId = Number(roomId)
     let date = req.query.YYYYMMDD
     // 날짜 형식 변경
-    date = new Date(
-      date.toString().slice(0, 4),  // 연도
-      date.toString().slice(4, 6) - 1,  // 월 (0부터 시작)
-      date.toString().slice(6, 8)   // 일
-    );
+    date = parseDate(date)
     
     const result = await prisma.place_reservation.findMany({
       where: {

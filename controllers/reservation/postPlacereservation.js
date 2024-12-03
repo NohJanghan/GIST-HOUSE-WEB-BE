@@ -1,4 +1,5 @@
 const prisma = require('../../prismaClient')
+const parseDate = require('../../utils/parseDate')
 
 // 예약 생성
 async function postPlacereservation(req, res) {
@@ -16,11 +17,7 @@ async function postPlacereservation(req, res) {
     // TODO: 잔여 시간을 확인하여 예약할 수 있는지 확인 필요
 
     // 쿼리로 받아온 값의 형식 변경
-    const date = new Date(
-        req.query.YYYYMMDD.slice(0, 4),  // 연도
-        req.query.YYYYMMDD.slice(4, 6) - 1,  // 월 (0부터 시작)
-        req.query.YYYYMMDD.slice(6, 8)   // 일
-    )
+    const date = parseDate(req.query.YYYYMMDD)
     const hour = Array.isArray(req.query.hour) ?
         req.query.hour.map(x => Number(x)) : [Number(req.query.hour)]
     const roomId = Number(req.query.roomId)

@@ -1,3 +1,5 @@
+const prisma = require('../../prismaClient')
+
 // 예약 생성
 async function postPlacereservation(req, res) {
     // 쿼리가 누락된 경우 400 Bad request

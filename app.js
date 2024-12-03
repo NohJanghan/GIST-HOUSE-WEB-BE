@@ -19,6 +19,7 @@ app.use(session({
         maxAge: 24 * 60 * 60 * 1000,
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
+        sameSite: 'none',
     }
 }))
 app.use(cors({

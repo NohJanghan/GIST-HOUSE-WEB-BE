@@ -9,9 +9,8 @@ async function postPlacereservation(req, res) {
     }
 
     // 로그인 되지 않은 경우에는 403 Forbidden
-    // TODO: 이후에 401 Unauthorized 로 변경 필요
     if(!req.session.userInfo || !req.session.userInfo.student_id) {
-        return res.status(403).send('Forbidden')
+        return res.status(401).send('Unauthorized')
     }
 
     // TODO: 잔여 시간을 확인하여 예약할 수 있는지 확인 필요

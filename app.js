@@ -1,6 +1,7 @@
 const express = require('express')
 const session = require('express-session')
 const authRouter = require('./routes/auth')
+const placereservationRouter = require('./routes/reservations')
 const dotenv = require('dotenv')
 
 dotenv.config()
@@ -24,6 +25,7 @@ app.use(session({
 // 라우트
 const URL_PREFIX = '/api'
 app.use(URL_PREFIX + '/auth', authRouter)
+app.use(URL_PREFIX + '/placereservation', placereservationRouter)
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);

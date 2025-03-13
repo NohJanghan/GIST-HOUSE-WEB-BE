@@ -11,6 +11,9 @@ const PORT = process.env.PORT || 3000;
 
 // 미들웨어 설정
 app.use(express.json())
+if(process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', true);
+}
 app.use(session({
     secret: generateRandomString(),
     saveUninitialized: false,

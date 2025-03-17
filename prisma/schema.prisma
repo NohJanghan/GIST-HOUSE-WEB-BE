@@ -26,6 +26,7 @@ model student {
   phone             String
   role              Role                @default(USER)
   place_reservation place_reservation[]
+  storage_application storage_application[]
 }
 
 model facility {
@@ -44,4 +45,22 @@ model place_reservation {
   student        student  @relation(fields: [studentId], references: [id])
 
   @@unique([date, hour, facilityId])
+}
+
+model storage {
+  id Int @id @default(autoincrement())
+  name String
+  storage_application storage_application[]
+}
+
+model storage_application {
+  application_id Int @id @default(autoincrement())
+  date DateTime @db.Date
+  hour Int
+  storageId Int
+  storage storage @relation(fields: [storageId], references: [id])
+  studentId Int
+  student student @relation(fields: [studentId], references: [id])
+
+  @@unique([date, hour, storageId])
 }
